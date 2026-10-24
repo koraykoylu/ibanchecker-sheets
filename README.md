@@ -8,6 +8,10 @@ Validation is done by the ibanchecker.cash API, the same engine as the website, 
 
 From the Google Workspace Marketplace (listing pending Google's review), then in any spreadsheet open **Extensions > IBAN Checker by ibanchecker.cash > Settings and API key** and paste your key. A free key is available at [ibanchecker.cash/api-docs](https://ibanchecker.cash/api-docs).
 
+In every other spreadsheet, open the add-on's menu once before typing a formula: Google Sheets loads an add-on's formulas in a spreadsheet only after the add-on has been used there. A formula typed before that shows `#NAME?` until the spreadsheet is reloaded.
+
+If the sidebar says "Authorization is required to perform that action", the browser is signed in to several Google accounts and the spreadsheet is open in one that is not the first; Apps Script sends the sidebar's request as the first account. Open the spreadsheet in a window signed in only to the account that installed the add-on.
+
 ## Formulas
 
 Every formula takes a single cell or a range and returns a result of the same shape.
