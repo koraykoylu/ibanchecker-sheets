@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <base target="_top">
+    <link rel="stylesheet" href="https://ssl.gstatic.com/docs/script/css/add-ons1.css">
+    <style>
+      .sidebar { padding: 12px 16px; }
+      h2 { font-size: 14px; margin: 16px 0 8px; }
+      p, li { line-height: 1.5; }
+      ul { padding-left: 18px; margin: 4px 0; }
+      code { font-family: "Roboto Mono", monospace; font-size: 12px; }
+      input[type="password"] { width: 100%; box-sizing: border-box; }
+      .row { display: flex; gap: 8px; margin-top: 8px; }
+      .hidden { display: none; }
+      .muted { color: #5f6368; }
+      .error { color: #c5221f; }
+    </style>
+  </head>
+  <body>
+    <div class="sidebar">
+      <h2>API key</h2>
+      <div id="has-key" class="hidden">
+        <p>Key saved: <code id="hint"></code></p>
+        <div class="row">
+          <button id="remove">Remove key</button>
+        </div>
+      </div>
+      <div id="no-key" class="hidden">
+        <p>Paste your ibanchecker.cash API key. It is stored in your Google account, not in this spreadsheet.</p>
+        <input id="key" type="password" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="iban_…">
+        <div class="row">
+          <button id="save" class="action">Save key</button>
+        </div>
+        <p class="muted">No key yet? <a href="https://ibanchecker.cash/api-docs" target="_blank" rel="noopener noreferrer">Get a free key</a>.</p>
+      </div>
+      <p id="message" class="error"></p>
+      <p id="usage" class="muted"></p>
+
+      <h2>How to use it</h2>
+      <ul>
+        <li><code>=IBAN_VALID(A2:A100)</code> TRUE or FALSE</li>
+        <li><code>=IBAN_ERROR(A2:A100)</code> why an IBAN failed</li>
+        <li><code>=IBAN_BANK(A2:A100)</code> the bank's name</li>
+        <li><code>=IBAN_BIC(A2:A100)</code> the bank's BIC</li>
+        <li><code>=IBAN_CHECK(A2:A100)</code> all five columns</li>
+      </ul>
+      <p>For a long list, select the IBANs and use <b>Check selected IBANs</b> in the add-on menu: the results are written as values next to them and are not recalculated.</p>
+      <p class="muted">Each IBAN counts as one request on your key. Results are kept for six hours in your own Google account, so the same IBAN checked again within six hours is not counted.</p>
+
+      <h2>Links</h2>
+      <ul>
+        <li><a href="https://ibanchecker.cash/integrations/google-sheets" target="_blank" rel="noopener noreferrer">Help</a></li>
+        <li><a href="https://ibanchecker.cash/pricing" target="_blank" rel="noopener noreferrer">Plans and limits</a></li>
+        <li><a href="https://ibanchecker.cash/privacy" target="_blank" rel="noopener noreferrer">Privacy policy</a></li>
+        <li><a href="https://ibanchecker.cash/contact" target="_blank" rel="noopener noreferrer">Contact support</a></li>
+      </ul>
+      <p class="muted" id="version"></p>
+    </div>
+    <script>
+      const $ = (id) => document.getElementById(id);
+
+      function render(s) {
+        $("has-key").classList.toggle("hidden", !s.hasKey);
+        $("no-key").classList.toggle("hidden", s.hasKey);
+        $("hint").textContent = s.hint;
+        $("key").value = "";
+        $("message").textContent = "";
+        $("usage").textContent = s.usage
+          ? `${Number(s.usage.remaining).toLocaleString("en-US")} requests left this month at the last check (${new Date(s.usage.at).toLocaleString()}).`
+          : "";
+        $("version").textContent = `Version ${s.version}`;
+        $("save").disabled = false;
+        $("remove").disabled = false;
+      }
+
+      function fail(err) {
+        $("message").textContent = err && err.message ? err.message : String(err);
+        $("save").disabled = false;
+        $("remove").disabled = false;
+      }
+
+      $("save").addEventListener("click", () => {
+        $("save").disabled = true;
+        google.script.run.withSuccessHandler(render).withFailureHandler(fail).ibcSaveKey($("key").value);
+      });
+      $("key").addEventListener("keydown", (e) => {
+        if (e.key === "Enter") $("save").click();
+      });
+      $("remove").addEventListener("click", () => {
+        $("remove").disabled = true;
+        google.script.run.withSuccessHandler(render).withFailureHandler(fail).ibcRemoveKey();
+      });
+
+      google.script.run.withSuccessHandler(render).withFailureHandler(fail).ibcSettings();
+    </script>
+  </body>
+</html>

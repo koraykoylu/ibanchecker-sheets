@@ -1,0 +1,12 @@
+{
+  "name": "ibanchecker-sheets",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Google Sheets add-on for the ibanchecker.cash IBAN validation API",
+  "license": "MIT",
+  "type": "module",
+  "scripts": {
+    "test": "node --test test/addon.test.mjs",
+    "push": "npx --yes @google/clasp@3 push"
+  }
+}
