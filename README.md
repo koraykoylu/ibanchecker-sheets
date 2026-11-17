@@ -6,7 +6,7 @@ Validation is done by the ibanchecker.cash API, the same engine as the website, 
 
 ## Install
 
-From the Google Workspace Marketplace (listing pending Google's review), then in any spreadsheet open **Extensions > IBAN Checker by ibanchecker.cash > Settings and API key** and paste your key. A free key is available at [ibanchecker.cash/api-docs](https://ibanchecker.cash/api-docs).
+From the [Google Workspace Marketplace](https://workspace.google.com/marketplace/app/iban_checker_by_ibancheckercash/302538254712), then in any spreadsheet open **Extensions > IBAN Checker by ibanchecker.cash > Settings and API key** and paste your key. A free key is available at [ibanchecker.cash/api-docs](https://ibanchecker.cash/api-docs).
 
 In every other spreadsheet, open the add-on's menu once before typing a formula: Google Sheets loads an add-on's formulas in a spreadsheet only after the add-on has been used there. A formula typed before that shows `#NAME?` until the spreadsheet is reloaded.
 
