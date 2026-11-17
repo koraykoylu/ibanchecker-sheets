@@ -1,6 +1,6 @@
 // Pure logic: no Apps Script service is touched here, so the tests can load this file as it is.
 
-const IBC_VERSION = "0.1.0";
+const IBC_VERSION = "0.1.1";
 
 const IBC_MENU = "Extensions > IBAN Checker by ibanchecker.cash";
 

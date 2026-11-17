@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.1.1
+
+- The API key field in the settings sidebar is a text field masked by the browser, so Chrome no longer offers to save the key as a password for the add-on's sandbox domain
+- The message after Check selected IBANs uses the singular for one IBAN ("1 was checked")
+
 ## 0.1.0
 
 First version, submitted to the Google Workspace Marketplace.

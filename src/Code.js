@@ -243,8 +243,10 @@ function ibcCheckSelection() {
   target.setValues(values.map((row) => ibcCheckRow_(result.records[ibcClean_(row[0])])));
 
   const checked = values.filter((row) => ibcClean_(row[0])).length;
-  const lines = [`${checked.toLocaleString("en-US")} IBANs checked.`];
-  if (result.cached) lines.push(`${result.cached.toLocaleString("en-US")} were checked in the last six hours and not charged again.`);
+  const lines = [`${checked.toLocaleString("en-US")} ${checked === 1 ? "IBAN" : "IBANs"} checked.`];
+  if (result.cached) {
+    lines.push(`${result.cached.toLocaleString("en-US")} ${result.cached === 1 ? "was" : "were"} checked in the last six hours and not charged again.`);
+  }
   if (result.remaining !== null && result.remaining !== undefined) {
     lines.push(`${result.remaining.toLocaleString("en-US")} requests left on your key this month.`);
   }

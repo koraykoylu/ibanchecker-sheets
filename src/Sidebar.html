@@ -9,7 +9,7 @@
       p, li { line-height: 1.5; }
       ul { padding-left: 18px; margin: 4px 0; }
       code { font-family: "Roboto Mono", monospace; font-size: 12px; }
-      input[type="password"] { width: 100%; box-sizing: border-box; }
+      #key { width: 100%; box-sizing: border-box; -webkit-text-security: disc; text-security: disc; }
       .row { display: flex; gap: 8px; margin-top: 8px; }
       .hidden { display: none; }
       .muted { color: #5f6368; }
@@ -27,7 +27,7 @@
       </div>
       <div id="no-key" class="hidden">
         <p>Paste your ibanchecker.cash API key. It is stored in your Google account, not in this spreadsheet.</p>
-        <input id="key" type="password" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="iban_…">
+        <input id="key" type="text" name="ibc-api-key" autocomplete="off" autocapitalize="off" autocorrect="off" spellcheck="false" data-1p-ignore data-lpignore="true" data-bwignore="true" data-form-type="other" placeholder="iban_…">
         <div class="row">
           <button id="save" class="action">Save key</button>
         </div>
